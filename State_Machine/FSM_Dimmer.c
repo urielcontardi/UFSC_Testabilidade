@@ -21,14 +21,13 @@ void stateMachine(light_state_t *currentState, int *brightness, char cmd)
                 *brightness     = 0;
                 printf("Lampada desligada, brilho em %d \n\n", *brightness);
             }
-            else if(*brightness < 10 && cmd == 'M')
+            else if(cmd == 'N')
             {
-                *brightness     = *brightness + 1;
-                printf("Brilho em %d \n\n", *brightness);
-            }
-            else if(*brightness > 1 && cmd == 'N')
-            {
-                *brightness     = *brightness - 1;
+                if (*brightness > 1)
+                    *brightness     = *brightness - 1;
+                else
+                    *brightness     = 10;
+                
                 printf("Brilho em %d \n\n", *brightness);             
             }
         
@@ -39,7 +38,7 @@ void stateMachine(light_state_t *currentState, int *brightness, char cmd)
 char menu(void){
     char cmd;
     printf("\n Comandos disponíveis: \n");
-    printf(" L - Ligar \n D - Desligar \n M - Aumentar Brilho \n N - Diminuir Brilho \n\n");
+    printf(" L - Ligar \n D - Desligar \n N - Diminuir Brilho \n\n");
     scanf(" %c", &cmd);
     return cmd;
 }

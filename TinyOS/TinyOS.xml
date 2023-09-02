@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.6//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_6.dtd'>
+<nta>
+	<declaration>//////////////////////////////////////////////////////////////////
+// Parameters Configuration
+//////////////////////////////////////////////////////////////////
+const int MT = 4;         // # Memory Segments (M) = Task (T) = MT
+typedef int[0,MT-1] mt_t;
+
+const int DC = 2;         // # Disk Controller (D) = DC
+typedef int[0,DC-1] dc_t;
+
+const int C = 2*DC;         // # Core (C) = 2 * Disk Controller (DC)
+typedef int[0,C-1] core_t;
+
+//////////////////////////////////////////////////////////////////
+// Resources and Tasks
+//////////////////////////////////////////////////////////////////
+const int N_TASKS = MT;
+const int N_TASK_ON_DISK = MT;
+const int N_MEMORY = MT;
+const int N_DISK_CTRL = DC;
+const int N_CPU_CORE = C;
+
+//////////////////////////////////////////////////////////////////
+// Resources Variables
+//////////////////////////////////////////////////////////////////
+int ctrUsedTaskOnDisk = 0;
+int ctrUsedMemory = 0;
+int ctrUsedDiskCtrl = 0;
+int ctrUsedCPU = 0;
+
+//////////////////////////////////////////////////////////////////
+// Channels
+//////////////////////////////////////////////////////////////////
+chan useMemory;
+chan freeMemory;
+chan useTaskOnDsk;
+chan freeTaskOnDsk;
+chan useDiskCtrl;
+chan freeDiskCtrl;
+chan useCPU;
+chan freeCPU;</declaration>
+	<template>
+		<name>Task</name>
+		<declaration>bool startLoading()
+{
+    // Its necessary a FreeTaskOnDisk + FreeMemorySegment + FreeDiskController to Load a Task
+    if(ctrUsedTaskOnDisk &lt; N_TASK_ON_DISK &amp;&amp; ctrUsedMemory &lt; N_MEMORY &amp;&amp; ctrUsedDiskCtrl &lt; N_DISK_CTRL)
+        return true;
+    else
+        return false;
+}
+
+bool startUnloading()
+{
+    if(ctrUsedTaskOnDisk &lt; N_TASK_ON_DISK &amp;&amp; ctrUsedDiskCtrl &lt; N_DISK_CTRL)
+        return true;
+    else
+        return false;
+}</declaration>
+		<location id="id0" x="340" y="0">
+			<name x="306" y="17">TaskReady</name>
+		</location>
+		<location id="id1" x="663" y="-144">
+			<name x="603" y="-178">TaskSuspended</name>
+		</location>
+		<location id="id2" x="663" y="0">
+			<name x="621" y="8">TaskRunning</name>
+		</location>
+		<location id="id3" x="126" y="0">
+			<name x="76" y="17">TaskUnloaded</name>
+		</location>
+		<location id="id4" x="340" y="-144">
+			<name x="280" y="-178">TaskUnloading</name>
+		</location>
+		<location id="id5" x="127" y="-144">
+			<name x="67" y="-178">TaskLoadingMem</name>
+		</location>
+		<location id="id6" x="127" y="-42">
+			<committed/>
+		</location>
+		<location id="id7" x="127" y="-93">
+			<committed/>
+		</location>
+		<location id="id8" x="204" y="-42">
+			<committed/>
+		</location>
+		<location id="id9" x="476" y="-144">
+			<committed/>
+		</location>
+		<location id="id10" x="340" y="-68">
+			<committed/>
+		</location>
+		<init ref="id3"/>
+		<transition id="id11">
+			<source ref="id5"/>
+			<target ref="id8"/>
+			<label kind="synchronisation" x="161" y="-127">freeTaskOnDsk!</label>
+			<nail x="161" y="-110"/>
+			<nail x="204" y="-110"/>
+		</transition>
+		<transition id="id12">
+			<source ref="id10"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="348" y="-59">freeDiskCtrl!</label>
+		</transition>
+		<transition id="id13">
+			<source ref="id9"/>
+			<target ref="id4"/>
+			<label kind="synchronisation" x="357" y="-144">useDiskCtrl!</label>
+		</transition>
+		<transition id="id14">
+			<source ref="id8"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="212" y="-59">freeDiskCtrl!</label>
+			<nail x="297" y="-42"/>
+		</transition>
+		<transition id="id15">
+			<source ref="id7"/>
+			<target ref="id5"/>
+			<label kind="synchronisation" x="17" y="-127">useDiskCtrl!</label>
+		</transition>
+		<transition id="id16">
+			<source ref="id6"/>
+			<target ref="id7"/>
+			<label kind="synchronisation" x="8" y="-76">useTaskOnDsk!</label>
+		</transition>
+		<transition id="id17">
+			<source ref="id0"/>
+			<target ref="id3"/>
+			<label kind="synchronisation" x="195" y="0">freeMemory!</label>
+		</transition>
+		<transition id="id18">
+			<source ref="id3"/>
+			<target ref="id6"/>
+			<label kind="guard" x="-17" y="-42">startLoading()</label>
+			<label kind="synchronisation" x="17" y="-25">useMemory!</label>
+		</transition>
+		<transition id="id19">
+			<source ref="id4"/>
+			<target ref="id10"/>
+			<label kind="synchronisation" x="348" y="-110">freeTaskOnDsk!</label>
+			<nail x="340" y="-110"/>
+		</transition>
+		<transition id="id20">
+			<source ref="id1"/>
+			<target ref="id9"/>
+			<label kind="guard" x="501" y="-161">startUnloading()</label>
+			<label kind="synchronisation" x="501" y="-144">useTaskOnDsk!</label>
+		</transition>
+		<transition id="id21">
+			<source ref="id0"/>
+			<target ref="id2"/>
+			<label kind="guard" x="391" y="-25">ctrUsedCPU &lt; N_CPU_CORE</label>
+			<label kind="synchronisation" x="459" y="0">useCPU!</label>
+		</transition>
+		<transition id="id22">
+			<source ref="id2"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="544" y="-85">freeCPU!</label>
+			<nail x="621" y="-17"/>
+			<nail x="621" y="-127"/>
+		</transition>
+		<transition id="id23">
+			<source ref="id1"/>
+			<target ref="id2"/>
+			<label kind="guard" x="714" y="-93">ctrUsedCPU &lt; N_CPU_CORE</label>
+			<label kind="synchronisation" x="714" y="-76">useCPU!</label>
+			<nail x="706" y="-127"/>
+			<nail x="706" y="-17"/>
+		</transition>
+	</template>
+	<template>
+		<name x="5" y="5">Resource</name>
+		<parameter>int &amp;ctrUseResource, chan &amp;chanGet, chan &amp;chanFree</parameter>
+		<declaration>// Place local declarations here.
+</declaration>
+		<location id="id24" x="-280" y="-26">
+			<name x="-297" y="-17">Ready</name>
+		</location>
+		<location id="id25" x="-280" y="59">
+			<name x="-297" y="67">Busy</name>
+		</location>
+		<init ref="id24"/>
+		<transition id="id26">
+			<source ref="id25"/>
+			<target ref="id24"/>
+			<label kind="synchronisation" x="-408" y="0">chanFree?</label>
+			<label kind="assignment" x="-467" y="17">ctrUseResource--</label>
+			<nail x="-322" y="59"/>
+			<nail x="-322" y="-26"/>
+		</transition>
+		<transition id="id27">
+			<source ref="id24"/>
+			<target ref="id25"/>
+			<label kind="synchronisation" x="-229" y="0">chanGet?</label>
+			<label kind="assignment" x="-229" y="17">ctrUseResource++</label>
+			<nail x="-238" y="-26"/>
+			<nail x="-238" y="59"/>
+		</transition>
+	</template>
+	<system>//////////////////////////////////////////////////////////////////
+// Typedef
+//////////////////////////////////////////////////////////////////
+typedef int[0, N_TASKS - 1] id_task_t;
+typedef int[0, N_TASK_ON_DISK - 1] id_tod_t;
+typedef int[0, N_MEMORY - 1] id_mem_t;
+typedef int[0, N_DISK_CTRL - 1] id_dskCtrl_t;
+typedef int[0, N_CPU_CORE- 1] id_core_t;
+
+//////////////////////////////////////////////////////////////////
+// Task and Resource Declaration
+//////////////////////////////////////////////////////////////////
+task_sys(const id_task_t id) = Task();
+taskOnDisk_sys(const id_tod_t id) = Resource(ctrUsedTaskOnDisk, useTaskOnDsk, freeTaskOnDsk);
+memory_sys(const id_mem_t id) = Resource(ctrUsedMemory, useMemory, freeMemory);
+diskCtrl_sys(const id_dskCtrl_t id) = Resource(ctrUsedDiskCtrl, useDiskCtrl, freeDiskCtrl);
+cpuCore_sys(const id_core_t id) = Resource(ctrUsedCPU, useCPU, freeCPU);
+
+//////////////////////////////////////////////////////////////////
+// System Declaration
+//////////////////////////////////////////////////////////////////
+system task_sys, taskOnDisk_sys, memory_sys, diskCtrl_sys, cpuCore_sys;</system>
+	<queries>
+		<option key="--diagnostic" value="-1"/>
+		<query>
+			<formula>A[] not deadlock
+</formula>
+			<comment/>
+			<result outcome="success" type="quality" timestamp="2023-09-02 18:05:52 -0300">
+				<option key="--diagnostic" value="2"/>
+			</result>
+		</query>
+		<query>
+			<formula>E[] forall(i:id_task_t) task_sys(i).TaskRunning imply task_sys(i).TaskSuspended</formula>
+			<comment/>
+			<result outcome="success" type="quality" timestamp="2023-09-02 18:06:32 -0300">
+				<option key="--diagnostic" value="-1"/>
+			</result>
+		</query>
+		<query>
+			<formula>E[] forall(i:id_task_t) task_sys(i).TaskReady imply task_sys(i).TaskRunning</formula>
+			<comment/>
+			<result outcome="success" type="quality" timestamp="2023-09-02 18:06:41 -0300">
+				<option key="--diagnostic" value="-1"/>
+			</result>
+		</query>
+		<query>
+			<formula>E[] forall(i:id_task_t) task_sys(i).TaskSuspended imply task_sys(i).TaskRunning</formula>
+			<comment/>
+			<result outcome="success" type="quality" timestamp="2023-09-02 18:06:50 -0300">
+				<option key="--diagnostic" value="-1"/>
+			</result>
+		</query>
+		<query>
+			<formula>E[] forall(i:id_task_t) task_sys(i).TaskSuspended imply task_sys(i).TaskUnloading</formula>
+			<comment/>
+			<result outcome="success" type="quality" timestamp="2023-09-02 18:07:00 -0300">
+				<option key="--diagnostic" value="-1"/>
+			</result>
+		</query>
+		<query>
+			<formula>E[] forall(i:id_task_t) task_sys(i).TaskUnloading imply task_sys(i).TaskReady</formula>
+			<comment/>
+			<result outcome="success" type="quality" timestamp="2023-09-02 18:07:11 -0300">
+				<option key="--diagnostic" value="-1"/>
+			</result>
+		</query>
+		<query>
+			<formula>E[] forall(i:id_task_t) task_sys(i).TaskReady imply task_sys(i).TaskUnloaded</formula>
+			<comment/>
+			<result outcome="success" type="quality" timestamp="2023-09-02 18:07:26 -0300">
+				<option key="--diagnostic" value="-1"/>
+			</result>
+		</query>
+		<query>
+			<formula>E&lt;&gt; forall(i:id_task_t) task_sys(i).TaskUnloaded imply task_sys(i).TaskLoadingMem</formula>
+			<comment/>
+			<result outcome="success" type="quality" timestamp="2023-09-02 18:07:32 -0300">
+				<option key="--diagnostic" value="-1"/>
+			</result>
+		</query>
+		<query>
+			<formula>E[] forall(i:id_task_t) task_sys(i).TaskLoadingMem imply task_sys(i).TaskReady</formula>
+			<comment/>
+			<result outcome="success" type="quality" timestamp="2023-09-02 18:07:39 -0300">
+				<option key="--diagnostic" value="-1"/>
+			</result>
+		</query>
+	</queries>
+</nta>

@@ -1,6 +1,55 @@
 {
-    "files.associations": {
-        "identification.h": "c",
-        "stdio.h": "c"
-    }
+    "telemetry.enableCrashReporter": false,
+    "githubPullRequests.telemetry.enabled": false,
+    "telemetry.enableTelemetry": false,
+    "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 0}",
+    "C_Cpp.default.cppStandard": "c++20",
+    "C_Cpp.default.cStandard": "c17",
+    "atlascode.jira.enabled": false,
+    "git.autofetch": true,
+    "cmake.configureOnOpen": true,
+    "todo-tree.tree.showScanModeButton": false,
+    "spellright.language": [
+        "en_GB",
+        "pt_BR"
+    ],
+    "spellright.documentTypes": [
+        "markdown",
+        "latex",
+        "plaintext"
+    ],
+    "[cpp]": {
+        "editor.defaultFormatter": "ms-vscode.cpptools"
+    },
+    "C_Cpp.clang_format_style": "{ BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 0}",
+    "codetour.showMarkers": true,
+    "todo-tree.general.tags": [
+        "BUG",
+        "HACK",
+        "FIXME",
+        "TODO",
+        "XXX",
+        "REVIEW"
+    ],
+    "terminal.integrated.defaultProfile.linux": "bash",
+    "terminal.integrated.fontSize": 12,
+    "telemetry.telemetryLevel": "off",
+    "C_Cpp.inlayHints.autoDeclarationTypes.enabled": true,
+    "C_Cpp.inlayHints.autoDeclarationTypes.showOnLeft": true,
+    "C_Cpp.inlayHints.referenceOperator.enabled": true,
+    "C_Cpp.inlayHints.referenceOperator.showSpace": true,
+    "C_Cpp.inlayHints.parameterNames.enabled": true,
+    "C_Cpp.codeAnalysis.clangTidy.enabled": true,
+    "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+    "c-cpp-flylint.cppcheck.standard": [
+        "c++17","c++20"
+    ],
+    "c-cpp-flylint.lizard.enable": true,
+    "gitlens.telemetry.enabled": false,
+    "c-cpp-flylint.excludeFromWorkspacePaths": [
+        "build/*"
+    ],
+    "c-cpp-flylint.cppcheck.suppressions": [        
+        "*:build:*"
+        ]
 }

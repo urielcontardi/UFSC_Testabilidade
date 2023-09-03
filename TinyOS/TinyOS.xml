@@ -59,116 +59,116 @@ bool startUnloading()
     else
         return false;
 }</declaration>
-		<location id="id0" x="340" y="0">
-			<name x="306" y="17">TaskReady</name>
+		<location id="id0" x="400" y="119">
+			<name x="366" y="136">TaskReady</name>
 		</location>
-		<location id="id1" x="663" y="-144">
-			<name x="603" y="-178">TaskSuspended</name>
+		<location id="id1" x="723" y="-25">
+			<name x="663" y="-59">TaskSuspended</name>
 		</location>
-		<location id="id2" x="663" y="0">
-			<name x="621" y="8">TaskRunning</name>
+		<location id="id2" x="723" y="119">
+			<name x="681" y="127">TaskRunning</name>
 		</location>
-		<location id="id3" x="126" y="0">
-			<name x="76" y="17">TaskUnloaded</name>
+		<location id="id3" x="186" y="119">
+			<name x="136" y="136">TaskUnloaded</name>
 		</location>
-		<location id="id4" x="340" y="-144">
-			<name x="280" y="-178">TaskUnloading</name>
+		<location id="id4" x="400" y="-25">
+			<name x="340" y="-59">TaskUnloading</name>
 		</location>
-		<location id="id5" x="127" y="-144">
-			<name x="67" y="-178">TaskLoadingMem</name>
+		<location id="id5" x="187" y="-25">
+			<name x="127" y="-59">TaskLoadingMem</name>
 		</location>
-		<location id="id6" x="127" y="-42">
+		<location id="id6" x="187" y="77">
 			<committed/>
 		</location>
-		<location id="id7" x="127" y="-93">
+		<location id="id7" x="187" y="26">
 			<committed/>
 		</location>
-		<location id="id8" x="204" y="-42">
+		<location id="id8" x="264" y="77">
 			<committed/>
 		</location>
-		<location id="id9" x="476" y="-144">
+		<location id="id9" x="536" y="-25">
 			<committed/>
 		</location>
-		<location id="id10" x="340" y="-68">
+		<location id="id10" x="400" y="51">
 			<committed/>
 		</location>
 		<init ref="id3"/>
 		<transition id="id11">
 			<source ref="id5"/>
 			<target ref="id8"/>
-			<label kind="synchronisation" x="161" y="-127">freeTaskOnDsk!</label>
-			<nail x="161" y="-110"/>
-			<nail x="204" y="-110"/>
+			<label kind="synchronisation" x="221" y="-8">freeTaskOnDsk!</label>
+			<nail x="221" y="9"/>
+			<nail x="264" y="9"/>
 		</transition>
 		<transition id="id12">
 			<source ref="id10"/>
 			<target ref="id0"/>
-			<label kind="synchronisation" x="348" y="-59">freeDiskCtrl!</label>
+			<label kind="synchronisation" x="408" y="60">freeDiskCtrl!</label>
 		</transition>
 		<transition id="id13">
 			<source ref="id9"/>
 			<target ref="id4"/>
-			<label kind="synchronisation" x="357" y="-144">useDiskCtrl!</label>
+			<label kind="synchronisation" x="417" y="-25">useDiskCtrl!</label>
 		</transition>
 		<transition id="id14">
 			<source ref="id8"/>
 			<target ref="id0"/>
-			<label kind="synchronisation" x="212" y="-59">freeDiskCtrl!</label>
-			<nail x="297" y="-42"/>
+			<label kind="synchronisation" x="272" y="60">freeDiskCtrl!</label>
+			<nail x="357" y="77"/>
 		</transition>
 		<transition id="id15">
 			<source ref="id7"/>
 			<target ref="id5"/>
-			<label kind="synchronisation" x="17" y="-127">useDiskCtrl!</label>
+			<label kind="synchronisation" x="77" y="-8">useDiskCtrl!</label>
 		</transition>
 		<transition id="id16">
 			<source ref="id6"/>
 			<target ref="id7"/>
-			<label kind="synchronisation" x="8" y="-76">useTaskOnDsk!</label>
+			<label kind="synchronisation" x="68" y="43">useTaskOnDsk!</label>
 		</transition>
 		<transition id="id17">
 			<source ref="id0"/>
 			<target ref="id3"/>
-			<label kind="synchronisation" x="195" y="0">freeMemory!</label>
+			<label kind="synchronisation" x="255" y="119">freeMemory!</label>
 		</transition>
 		<transition id="id18">
 			<source ref="id3"/>
 			<target ref="id6"/>
-			<label kind="guard" x="-17" y="-42">startLoading()</label>
-			<label kind="synchronisation" x="17" y="-25">useMemory!</label>
+			<label kind="guard" x="43" y="77">startLoading()</label>
+			<label kind="synchronisation" x="77" y="94">useMemory!</label>
 		</transition>
 		<transition id="id19">
 			<source ref="id4"/>
 			<target ref="id10"/>
-			<label kind="synchronisation" x="348" y="-110">freeTaskOnDsk!</label>
-			<nail x="340" y="-110"/>
+			<label kind="synchronisation" x="408" y="9">freeTaskOnDsk!</label>
+			<nail x="400" y="9"/>
 		</transition>
 		<transition id="id20">
 			<source ref="id1"/>
 			<target ref="id9"/>
-			<label kind="guard" x="501" y="-161">startUnloading()</label>
-			<label kind="synchronisation" x="501" y="-144">useTaskOnDsk!</label>
+			<label kind="guard" x="561" y="-42">startUnloading()</label>
+			<label kind="synchronisation" x="561" y="-25">useTaskOnDsk!</label>
 		</transition>
 		<transition id="id21">
 			<source ref="id0"/>
 			<target ref="id2"/>
-			<label kind="guard" x="391" y="-25">ctrUsedCPU &lt; N_CPU_CORE</label>
-			<label kind="synchronisation" x="459" y="0">useCPU!</label>
+			<label kind="guard" x="451" y="94">ctrUsedCPU &lt; N_CPU_CORE</label>
+			<label kind="synchronisation" x="519" y="119">useCPU!</label>
 		</transition>
 		<transition id="id22">
 			<source ref="id2"/>
 			<target ref="id1"/>
-			<label kind="synchronisation" x="544" y="-85">freeCPU!</label>
-			<nail x="621" y="-17"/>
-			<nail x="621" y="-127"/>
+			<label kind="synchronisation" x="604" y="34">freeCPU!</label>
+			<nail x="681" y="102"/>
+			<nail x="681" y="-8"/>
 		</transition>
 		<transition id="id23">
 			<source ref="id1"/>
 			<target ref="id2"/>
-			<label kind="guard" x="714" y="-93">ctrUsedCPU &lt; N_CPU_CORE</label>
-			<label kind="synchronisation" x="714" y="-76">useCPU!</label>
-			<nail x="706" y="-127"/>
-			<nail x="706" y="-17"/>
+			<label kind="guard" x="774" y="26">ctrUsedCPU &lt; N_CPU_CORE</label>
+			<label kind="synchronisation" x="774" y="43">useCPU!</label>
+			<nail x="766" y="-8"/>
+			<nail x="766" y="102"/>
 		</transition>
 	</template>
 	<template>
@@ -284,7 +284,7 @@ system task_sys, taskOnDisk_sys, memory_sys, diskCtrl_sys, cpuCore_sys;</system>
 		<query>
 			<formula>E[] forall(i:id_task_t) task_sys(i).TaskLoadingMem imply task_sys(i).TaskReady</formula>
 			<comment/>
-			<result outcome="success" type="quality" timestamp="2023-09-02 18:07:39 -0300">
+			<result outcome="success" type="quality" timestamp="2023-09-03 05:44:00 -0300">
 				<option key="--diagnostic" value="-1"/>
 			</result>
 		</query>

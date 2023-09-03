@@ -29,6 +29,26 @@ Dentre as principais utilizações da ferramenta, destacam-se:
 <img src="img/task.png" alt="drawing" width="800"/>
 </p>
 
+```
+bool startLoading()
+{
+    // Its necessary a FreeTaskOnDisk + FreeMemorySegment + FreeDiskController to Load a Task
+    if(ctrUsedTaskOnDisk < N_TASK_ON_DISK && ctrUsedMemory < N_MEMORY && ctrUsedDiskCtrl < N_DISK_CTRL)
+        return true;
+    else
+        return false;
+}
+```
+
+```
+bool startUnloading()
+{
+    if(ctrUsedTaskOnDisk < N_TASK_ON_DISK && ctrUsedDiskCtrl < N_DISK_CTRL)
+        return true;
+    else
+        return false;
+}
+```
 ### Resource
 <p align="center">
 <img src="img/resource.png" alt="drawing" width="300"/>

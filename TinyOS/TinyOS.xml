@@ -225,66 +225,67 @@ system task_sys, taskOnDisk_sys, memory_sys, diskCtrl_sys, cpuCore_sys;</system>
 	<queries>
 		<option key="--diagnostic" value="-1"/>
 		<query>
+			<formula/>
+			<comment>===== Deadlock (Safety):</comment>
+		</query>
+		<query>
 			<formula>A[] not deadlock
 </formula>
 			<comment/>
-			<result outcome="success" type="quality" timestamp="2023-09-02 18:05:52 -0300">
-				<option key="--diagnostic" value="2"/>
-			</result>
-		</query>
-		<query>
-			<formula>E[] forall(i:id_task_t) task_sys(i).TaskRunning imply task_sys(i).TaskSuspended</formula>
-			<comment/>
-			<result outcome="success" type="quality" timestamp="2023-09-02 18:06:32 -0300">
+			<result outcome="success" type="quality" timestamp="2023-09-04 15:41:45 -0300">
 				<option key="--diagnostic" value="-1"/>
 			</result>
 		</query>
 		<query>
-			<formula>E[] forall(i:id_task_t) task_sys(i).TaskReady imply task_sys(i).TaskRunning</formula>
-			<comment/>
-			<result outcome="success" type="quality" timestamp="2023-09-02 18:06:41 -0300">
-				<option key="--diagnostic" value="-1"/>
-			</result>
-		</query>
-		<query>
-			<formula>E[] forall(i:id_task_t) task_sys(i).TaskSuspended imply task_sys(i).TaskRunning</formula>
-			<comment/>
-			<result outcome="success" type="quality" timestamp="2023-09-02 18:06:50 -0300">
-				<option key="--diagnostic" value="-1"/>
-			</result>
+			<formula/>
+			<comment>===== Liveness Properties:</comment>
 		</query>
 		<query>
 			<formula>E[] forall(i:id_task_t) task_sys(i).TaskSuspended imply task_sys(i).TaskUnloading</formula>
 			<comment/>
-			<result outcome="success" type="quality" timestamp="2023-09-02 18:07:00 -0300">
-				<option key="--diagnostic" value="-1"/>
-			</result>
-		</query>
-		<query>
-			<formula>E[] forall(i:id_task_t) task_sys(i).TaskUnloading imply task_sys(i).TaskReady</formula>
-			<comment/>
-			<result outcome="success" type="quality" timestamp="2023-09-02 18:07:11 -0300">
-				<option key="--diagnostic" value="-1"/>
-			</result>
-		</query>
-		<query>
-			<formula>E[] forall(i:id_task_t) task_sys(i).TaskReady imply task_sys(i).TaskUnloaded</formula>
-			<comment/>
-			<result outcome="success" type="quality" timestamp="2023-09-02 18:07:26 -0300">
-				<option key="--diagnostic" value="-1"/>
-			</result>
-		</query>
-		<query>
-			<formula>E&lt;&gt; forall(i:id_task_t) task_sys(i).TaskUnloaded imply task_sys(i).TaskLoadingMem</formula>
-			<comment/>
-			<result outcome="success" type="quality" timestamp="2023-09-02 18:07:32 -0300">
+			<result outcome="success" type="quality" timestamp="2023-09-04 15:41:48 -0300">
 				<option key="--diagnostic" value="-1"/>
 			</result>
 		</query>
 		<query>
 			<formula>E[] forall(i:id_task_t) task_sys(i).TaskLoadingMem imply task_sys(i).TaskReady</formula>
 			<comment/>
-			<result outcome="success" type="quality" timestamp="2023-09-03 05:44:00 -0300">
+			<result outcome="success" type="quality" timestamp="2023-09-04 15:41:48 -0300">
+				<option key="--diagnostic" value="-1"/>
+			</result>
+		</query>
+		<query>
+			<formula>E[] forall(i:id_task_t) task_sys(i).TaskReady imply task_sys(i).TaskRunning</formula>
+			<comment/>
+			<result outcome="success" type="quality" timestamp="2023-09-04 15:41:48 -0300">
+				<option key="--diagnostic" value="-1"/>
+			</result>
+		</query>
+		<query>
+			<formula>E[] forall(i:id_task_t) task_sys(i).TaskRunning imply task_sys(i).TaskSuspended</formula>
+			<comment/>
+			<result outcome="success" type="quality" timestamp="2023-09-04 15:41:48 -0300">
+				<option key="--diagnostic" value="-1"/>
+			</result>
+		</query>
+		<query>
+			<formula>E[] forall(i:id_task_t) task_sys(i).TaskReady imply task_sys(i).TaskUnloaded</formula>
+			<comment/>
+			<result outcome="success" type="quality" timestamp="2023-09-04 15:41:48 -0300">
+				<option key="--diagnostic" value="-1"/>
+			</result>
+		</query>
+		<query>
+			<formula>E[] forall(i:id_task_t) task_sys(i).TaskUnloading imply task_sys(i).TaskReady</formula>
+			<comment/>
+			<result outcome="success" type="quality" timestamp="2023-09-04 15:41:48 -0300">
+				<option key="--diagnostic" value="-1"/>
+			</result>
+		</query>
+		<query>
+			<formula>E[] forall(i:id_task_t) task_sys(i).TaskSuspended imply task_sys(i).TaskRunning</formula>
+			<comment/>
+			<result outcome="success" type="quality" timestamp="2023-09-04 15:41:48 -0300">
 				<option key="--diagnostic" value="-1"/>
 			</result>
 		</query>

@@ -1,16 +1,18 @@
-# Modelo de Rede de Petri - Sistema Operacional no UPPAAL
+# Modelo de Rede de Petri - Sistema Operacional no TAPAAL
 
+## TAPAAL
 
-## UPPAAL
+TAPAAL é um acrônimo para "Timed-Arc Petri Net Analysis and Verification Tool" (Ferramenta de Análise e Verificação de Redes de Petri com Arcos Temporizados, em tradução livre). Trata-se de uma ferramenta de software de código aberto que é usada para modelar, simular, verificar e analisar sistemas temporizados usando Redes de Petri Temporizadas (Timed Petri Nets). O software é usado principalmente em pesquisa e desenvolvimento de sistemas críticos em tempo real, onde a verificação formal e a modelagem de sistemas são essenciais para garantir o funcionamento correto e seguro. Ele é uma ferramenta útil para engenheiros, cientistas da computação e pesquisadores que trabalham em áreas que envolvem sistemas temporizados e sistemas embarcados. Além disso, como é uma ferramenta de código aberto, está disponível gratuitamente para a comunidade, facilitando seu uso e contribuições de desenvolvedores.
 
-O UPPAAL é uma ferramenta de código aberto amplamente utilizada para modelagem, simulação e verificação de sistemas baseados em tempo real. Foi desenvolvido principalmente por pesquisadores da Universidade de Uppsala, na Suécia, e da Universidade de Aalborg, na Dinamarca. O nome "UPPAAL" é uma combinação das palavras "Uppsala" e "Aalborg."
+Editor Gráfico: O TAPAAL oferece uma interface gráfica para a criação de modelos de Redes de Petri Temporizadas, tornando-o acessível para engenheiros e modeladores.
 
-Dentre as principais utilizações da ferramenta, destacam-se:
+- Simulação: É possível simular o comportamento do sistema modelado para verificar seu funcionamento antes de realizar análises formais.
 
-- Modelagem de Sistemas: UPPAAL permite a criação de modelos para sistemas reativos e sistemas baseados em tempo real. Esses modelos podem ser usados para representar sistemas como protocolos de comunicação, sistemas embarcados, sistemas de controle e muito mais.
-- Linguagem de Modelagem: UPPAAL utiliza uma linguagem de modelagem formal, que é uma extensão da linguagem de descrição de sistemas temporizados (TDSL). Isso permite a representação precisa de sistemas que dependem do tempo.
-- Simulação: Os modelos criados no UPPAAL podem ser simulados para entender o comportamento do sistema em diferentes cenários. Isso ajuda os desenvolvedores a depurar e ajustar seus sistemas antes da implementação real.
-- Verificação Formal: Uma das capacidades mais poderosas do UPPAAL é a verificação formal. Ele permite que os engenheiros verifiquem automaticamente propriedades críticas em seus modelos, como propriedades de segurança e continuidade (liveness). Isso é crucial para sistemas críticos, onde erros podem ter consequências graves.
+- Verificação: O TAPAAL suporta a verificação formal de propriedades dos modelos, como propriedades de deadlock, alcançabilidade, vivacidade e outras.
+
+- Geração de Contadores de Tempo: A ferramenta gera automaticamente contadores de tempo para ajudar na análise temporal dos modelos.
+
+- Análise de Desempenho: Também permite a análise de desempenho, incluindo métricas como tempo de execução e latência.
 
 ## Rede de Petri
 
@@ -33,12 +35,10 @@ A propriedade de vivacidade em sistemas refere-se à garantia de que algum event
 
 Em sistemas distribuídos, essas propriedades são cruciais para garantir que o sistema funcione de maneira confiável e eficaz, especialmente em ambientes críticos, como sistemas de controle industrial, sistemas financeiros e sistemas de saúde.
 
-### Semantica das Propriedades de verificação no UPPAAL
-
 
 ## Objetivo
 
-Este trabalho tem por objetivo modelar uma rede de Petri que representa um sistema operacional simples utlizando-se da ferramenta UPPAAL, que consistem em um ambiente para modelagem, simulação e verificação de sistemas baseados em tempo real. O sistema operacional é modelado com base em tarefas (tasks), recursos e a alocação destes recursos.
+Este trabalho tem por objetivo modelar uma rede de Petri que representa um sistema operacional simples utlizando-se da ferramenta TAPAAL, que consistem em um ambiente para modelagem, simulação e verificação de sistemas baseados em tempo real. O sistema operacional é modelado com base em tarefas (tasks), recursos e a alocação destes recursos.
 
 ## Representação da rede de Petri do problema
 
@@ -148,7 +148,6 @@ Diminuindo o modelo para MT = 4 e DC = 2 foi possível recursos suficientes para
 <p align="center">
 <img src="img/log_4_2.png" alt="drawing" width="300"/>
 </p>
-
 
 ## Conclusão
 

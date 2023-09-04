@@ -53,59 +53,29 @@ Este trabalho tem por objetivo modelar uma rede de Petri que representa um siste
 O sistema possui alguns parâmetros: M (Memory Segment), T (tasks), D (Disk Controllers) e C (Core). Para simplificar reduziu-se para dois únicos parametros MT e DC, em que: $$ M = T = MT $$ $$ D = DC $$ $$ C = 2 DC $$
 
 
-## Modelagem do Sistema no UPPAAL
+## Modelagem do Sistema no TAPAAL
 
-### Task
-
-```
-templateTask()
-```
+### Modelo
 
 <p align="center">
-<img src="img/task.png" alt="drawing" width="800"/>
+<img src="img/petri.png" alt="drawing" width="600"/>
 </p>
 
-#### Funções:
-```
-bool startLoading()
-{
-    // Its necessary a FreeTaskOnDisk + FreeMemorySegment + FreeDiskController to Load a Task
-    if(ctrUsedTaskOnDisk < N_TASK_ON_DISK && ctrUsedMemory < N_MEMORY && ctrUsedDiskCtrl < N_DISK_CTRL)
-        return true;
-    else
-        return false;
-}
-```
-
-```
-bool startUnloading()
-{
-    if(ctrUsedTaskOnDisk < N_TASK_ON_DISK && ctrUsedDiskCtrl < N_DISK_CTRL)
-        return true;
-    else
-        return false;
-}
-```
-
-### Resource
-```
-templateResource(int &ctrUseResource, chan &chanGet, chan &chanFree)
-```
-
-<p align="center">
-<img src="img/resource.png" alt="drawing" width="300"/>
-</p>
+### Simulação
+![using a color picker](img/petri_run.gif)
 
 ## Verificação Formal
 
-<p align="center">
-<img src="img/properties.png" alt="drawing" width="400"/>
-</p>
+Os tipos de verificação possíveis no TAPAAL são:
 
+- ``` (EF) Existe alguma marcação acessível que satisfaz ``` 
+- ``` (EG) Existe um traço no qual cada marcação satisfaz ``` 
+- ``` (AF) Em todos os traços existe eventualmente uma marcação que satisfaz ``` 
+- ``` (AG) Todas as marcações acessíveis satisfazem ``` 
 
 ### Propriedade de Safety
 
-- ``` A[] not deadlock ``` 
+- ``` AG !(deadlock) ``` 
 
 ### Propriedade de Liveness
 
@@ -115,39 +85,14 @@ templateResource(int &ctrUseResource, chan &chanGet, chan &chanFree)
 
 - ```E[] forall(i:id_task_t) task_sys(i).TaskReady imply task_sys(i).TaskRunning```
 
-- ```E[] forall(i:id_task_t) task_sys(i).TaskRunning imply task_sys(i).TaskSuspended```
-
-- ```E[] forall(i:id_task_t) task_sys(i).TaskReady imply task_sys(i).TaskUnloaded```
-
-- ```E[] forall(i:id_task_t) task_sys(i).TaskUnloading imply task_sys(i).TaskReady```
-
-- ```E[] forall(i:id_task_t) task_sys(i).TaskSuspended imply task_sys(i).TaskRunning```
 
 ## Resultados
 
-### MT = 16 e DC = 8:
-
+### Deadlock:
 <p align="center">
-<img src="img/model_16_8.png" alt="drawing" width="900"/>
-</p>
-
-O modelo demonstrou-se funcional, no entanto ressalta-se o alto custo computacional da ferramenta para a verificação formal do sistema. Ao aumentar o número de elementos no sistema o tempo e consumo de memória elevam exponencialmente. A seguir ilustra-se o tempo decorrido e memória utilizados durante o processo de verificação da primeira propriedade para 
-
-<p align="center">
-<img src="img/compilation.png" alt="drawing" width="200"/>
-</p>
-
-### MT = 4 e DC = 2:
-
-<p align="center">
-<img src="img/model_4_2.png" alt="drawing" width="900"/>
-</p>
-
-Diminuindo o modelo para MT = 4 e DC = 2 foi possível recursos suficientes para verificação do sistema:
-
-<p align="center">
-<img src="img/log_4_2.png" alt="drawing" width="300"/>
+<img src="img/deadlock.png" alt="drawing" width="250"/>
 </p>
 
 ## Conclusão
 
+Ao comparar a usabilidade do software em relação ao software UPAAL notou-se que a verificação é realizada de maneira mais eficaz e rapidamente

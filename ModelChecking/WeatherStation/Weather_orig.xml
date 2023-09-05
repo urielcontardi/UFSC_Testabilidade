@@ -1,0 +1,752 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.6//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_6.dtd'>
+<nta>
+	<declaration>//////////////////////////////////
+// Parameters
+//////////////////////////////////
+const int N = 5; // Number of clients
+typedef int[1,N] id;
+
+//////////////////////////////////
+// Variables
+//////////////////////////////////
+bool atcIdle = true;
+
+//////////////////////////////////
+// Client Channel
+//////////////////////////////////
+broadcast chan cltReqConn;
+
+broadcast chan cltSendGetOk; 
+broadcast chan cltSendGetFail;
+
+broadcast chan cltSendUseNewOk;
+broadcast chan cltSendUseNewFail;
+
+broadcast chan cltSendUseOldOk;
+broadcast chan cltSendUseOldFail;
+
+//////////////////////////////////
+// ATC Channel
+//////////////////////////////////
+broadcast chan atcSend_Idle;
+broadcast chan atcSend_PreInit;
+broadcast chan atcSend_PreUpd;
+broadcast chan atcSend_GetNew;
+broadcast chan atcSend_UseNew;
+broadcast chan atcSend_UseOld;
+broadcast chan atcSend_Disconn;
+
+broadcast chan atcSend_WCPEn;
+broadcast chan atcSend_WCPDisb;
+//////////////////////////////////
+// WCP Channel
+//////////////////////////////////
+broadcast chan wcpReq;
+
+//////////////////////////////////
+// SuperState Channel
+//////////////////////////////////
+broadcast chan atcSendConRefuse;
+
+//////////////////////////////////
+// User Button
+//////////////////////////////////
+bool pressButton = false;
+</declaration>
+	<template>
+		<name x="5" y="5">Client</name>
+		<parameter>const id idx</parameter>
+		<declaration>// Place local declarations here.
+</declaration>
+		<location id="id0" x="135" y="8">
+			<name x="84" y="16">Disconnected</name>
+		</location>
+		<location id="id1" x="-19" y="8">
+		</location>
+		<location id="id2" x="-239" y="8">
+			<name x="-264" y="-26">PreInit</name>
+		</location>
+		<location id="id3" x="-443" y="8">
+			<name x="-453" y="-26">Init</name>
+			<committed/>
+		</location>
+		<location id="id4" x="-605" y="8">
+		</location>
+		<location id="id5" x="-426" y="101">
+			<name x="-460" y="67">PostInit</name>
+			<committed/>
+		</location>
+		<location id="id6" x="-282" y="101">
+		</location>
+		<location id="id7" x="-222" y="195">
+			<name x="-222" y="195">Idle</name>
+		</location>
+		<location id="id8" x="-221" y="280">
+			<name x="-205" y="271">PreUpdating</name>
+		</location>
+		<location id="id9" x="-222" y="356">
+			<name x="-197" y="348">Updating</name>
+			<committed/>
+		</location>
+		<location id="id10" x="-222" y="449">
+		</location>
+		<location id="id11" x="-443" y="373">
+			<name x="-486" y="339">PostUpdating</name>
+			<committed/>
+		</location>
+		<location id="id12" x="-443" y="263">
+		</location>
+		<location id="id13" x="109" y="382">
+			<name x="58" y="348">PostReverting</name>
+			<committed/>
+		</location>
+		<location id="id14" x="109" y="271">
+		</location>
+		<branchpoint id="id15" x="109" y="331"/>
+		<branchpoint id="id16" x="-443" y="314"/>
+		<branchpoint id="id17" x="-222" y="407"/>
+		<branchpoint id="id18" x="-358" y="101"/>
+		<branchpoint id="id19" x="-520" y="8"/>
+		<init ref="id0"/>
+		<transition id="id20">
+			<source ref="id14"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="75" y="118">atcSend_Disconn?</label>
+			<nail x="135" y="186"/>
+		</transition>
+		<transition id="id21">
+			<source ref="id14"/>
+			<target ref="id7"/>
+			<label kind="synchronisation" x="-103" y="169">atcSend_Idle?</label>
+			<nail x="92" y="195"/>
+		</transition>
+		<transition id="id22">
+			<source ref="id15"/>
+			<target ref="id14"/>
+			<label kind="synchronisation" x="-78" y="271">cltSendUseOldOk!</label>
+			<label kind="probability" x="33" y="288">0.9</label>
+			<nail x="67" y="331"/>
+			<nail x="67" y="271"/>
+		</transition>
+		<transition id="id23">
+			<source ref="id15"/>
+			<target ref="id14"/>
+			<label kind="synchronisation" x="160" y="271">cltSendUseOldFail!</label>
+			<label kind="probability" x="160" y="288">0.1</label>
+			<nail x="152" y="331"/>
+			<nail x="152" y="271"/>
+		</transition>
+		<transition id="id24">
+			<source ref="id13"/>
+			<target ref="id15"/>
+		</transition>
+		<transition id="id25">
+			<source ref="id10"/>
+			<target ref="id13"/>
+			<label kind="synchronisation" x="-86" y="449">atcSend_UseOld?</label>
+			<nail x="109" y="449"/>
+		</transition>
+		<transition id="id26">
+			<source ref="id12"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="-664" y="144">atcSend_Disconn?</label>
+			<nail x="-477" y="212"/>
+			<nail x="-477" y="144"/>
+			<nail x="-681" y="144"/>
+			<nail x="-681" y="-103"/>
+			<nail x="160" y="-103"/>
+			<nail x="194" y="-103"/>
+			<nail x="194" y="8"/>
+		</transition>
+		<transition id="id27">
+			<source ref="id12"/>
+			<target ref="id7"/>
+			<label kind="synchronisation" x="-392" y="195">atcSend_Idle?</label>
+			<nail x="-443" y="195"/>
+		</transition>
+		<transition id="id28">
+			<source ref="id16"/>
+			<target ref="id12"/>
+			<label kind="synchronisation" x="-639" y="271">cltSendUseNewFail!</label>
+			<label kind="probability" x="-511" y="288">0.1</label>
+			<nail x="-477" y="314"/>
+			<nail x="-477" y="263"/>
+		</transition>
+		<transition id="id29">
+			<source ref="id16"/>
+			<target ref="id12"/>
+			<label kind="synchronisation" x="-401" y="271">cltSendUseNewOk!</label>
+			<label kind="probability" x="-401" y="288">0.9</label>
+			<nail x="-409" y="314"/>
+			<nail x="-409" y="263"/>
+		</transition>
+		<transition id="id30">
+			<source ref="id11"/>
+			<target ref="id16"/>
+		</transition>
+		<transition id="id31">
+			<source ref="id10"/>
+			<target ref="id11"/>
+			<label kind="synchronisation" x="-418" y="449">atcSend_UseNew?</label>
+			<nail x="-316" y="449"/>
+			<nail x="-443" y="449"/>
+		</transition>
+		<transition id="id32">
+			<source ref="id17"/>
+			<target ref="id10"/>
+			<label kind="synchronisation" x="-392" y="399">cltSendGetFail!</label>
+			<label kind="probability" x="-299" y="416">0.1</label>
+			<nail x="-265" y="407"/>
+		</transition>
+		<transition id="id33">
+			<source ref="id17"/>
+			<target ref="id10"/>
+			<label kind="synchronisation" x="-171" y="399">cltSendGetOk!</label>
+			<label kind="probability" x="-171" y="416">0.9</label>
+			<nail x="-180" y="407"/>
+		</transition>
+		<transition id="id34">
+			<source ref="id9"/>
+			<target ref="id17"/>
+			<nail x="-222" y="399"/>
+		</transition>
+		<transition id="id35">
+			<source ref="id8"/>
+			<target ref="id9"/>
+			<label kind="synchronisation" x="-214" y="314">atcSend_GetNew?</label>
+		</transition>
+		<transition id="id36">
+			<source ref="id7"/>
+			<target ref="id8"/>
+			<label kind="synchronisation" x="-214" y="229">atcSend_PreUpd?</label>
+		</transition>
+		<transition id="id37">
+			<source ref="id6"/>
+			<target ref="id7"/>
+			<label kind="synchronisation" x="-214" y="135">atcSend_Idle?</label>
+			<nail x="-222" y="127"/>
+		</transition>
+		<transition id="id38">
+			<source ref="id6"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="-137" y="59">atcSend_Disconn?</label>
+			<nail x="-222" y="59"/>
+			<nail x="92" y="59"/>
+		</transition>
+		<transition id="id39">
+			<source ref="id18"/>
+			<target ref="id6"/>
+			<label kind="synchronisation" x="-384" y="42">cltSendUseNewOk!</label>
+			<label kind="probability" x="-333" y="67">0.9</label>
+			<nail x="-358" y="67"/>
+			<nail x="-282" y="67"/>
+		</transition>
+		<transition id="id40">
+			<source ref="id18"/>
+			<target ref="id6"/>
+			<label kind="synchronisation" x="-401" y="144">cltSendUseNewFail!</label>
+			<label kind="probability" x="-333" y="118">0.1</label>
+			<nail x="-358" y="143"/>
+			<nail x="-282" y="143"/>
+		</transition>
+		<transition id="id41">
+			<source ref="id5"/>
+			<target ref="id18"/>
+			<nail x="-367" y="101"/>
+		</transition>
+		<transition id="id42">
+			<source ref="id4"/>
+			<target ref="id5"/>
+			<label kind="synchronisation" x="-613" y="101">atcSend_UseNew?</label>
+			<nail x="-639" y="33"/>
+			<nail x="-639" y="101"/>
+		</transition>
+		<transition id="id43">
+			<source ref="id4"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="-299" y="-94">atcSend_Disconn?</label>
+			<nail x="-639" y="-1"/>
+			<nail x="-639" y="-77"/>
+			<nail x="160" y="-77"/>
+			<nail x="160" y="-18"/>
+		</transition>
+		<transition id="id44">
+			<source ref="id19"/>
+			<target ref="id4"/>
+			<label kind="synchronisation" x="-622" y="50">cltSendGetFail!</label>
+			<label kind="probability" x="-571" y="25">0.1</label>
+			<nail x="-520" y="50"/>
+			<nail x="-605" y="50"/>
+		</transition>
+		<transition id="id45">
+			<source ref="id19"/>
+			<target ref="id4"/>
+			<label kind="synchronisation" x="-613" y="-52">cltSendGetOk!</label>
+			<label kind="probability" x="-571" y="-18">0.9</label>
+			<nail x="-520" y="-26"/>
+			<nail x="-605" y="-26"/>
+		</transition>
+		<transition id="id46">
+			<source ref="id3"/>
+			<target ref="id19"/>
+		</transition>
+		<transition id="id47">
+			<source ref="id2"/>
+			<target ref="id3"/>
+			<label kind="synchronisation" x="-401" y="-9">atcSend_GetNew?</label>
+		</transition>
+		<transition id="id48">
+			<source ref="id1"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="-188" y="-9">atcSend_PreInit?</label>
+		</transition>
+		<transition id="id49">
+			<source ref="id1"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="-10" y="-69">atcSendConRefuse?</label>
+			<nail x="-18" y="-43"/>
+			<nail x="135" y="-43"/>
+		</transition>
+		<transition id="id50">
+			<source ref="id0"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="16" y="-18">cltReqConn!</label>
+		</transition>
+	</template>
+	<template>
+		<name>ATC_Refuse</name>
+		<location id="id51" x="-85" y="-51">
+		</location>
+		<location id="id52" x="-85" y="8">
+			<committed/>
+		</location>
+		<init ref="id51"/>
+		<transition id="id53">
+			<source ref="id52"/>
+			<target ref="id51"/>
+			<label kind="synchronisation" x="-272" y="-34">atcSendConRefuse!</label>
+			<nail x="-119" y="8"/>
+			<nail x="-119" y="-51"/>
+		</transition>
+		<transition id="id54">
+			<source ref="id51"/>
+			<target ref="id52"/>
+			<label kind="guard" x="-42" y="-42">atcIdle == false</label>
+			<label kind="synchronisation" x="-42" y="-25">cltReqConn?</label>
+			<nail x="-51" y="-51"/>
+			<nail x="-51" y="8"/>
+		</transition>
+	</template>
+	<template>
+		<name>WCP</name>
+		<location id="id55" x="-289" y="-26">
+			<name x="-314" y="-60">Enable</name>
+		</location>
+		<location id="id56" x="-289" y="59">
+			<name x="-314" y="25">Disable</name>
+		</location>
+		<init ref="id55"/>
+		<transition id="id57">
+			<source ref="id56"/>
+			<target ref="id55"/>
+			<label kind="synchronisation" x="-238" y="8">atcSend_WCPEn?</label>
+			<nail x="-246" y="59"/>
+			<nail x="-246" y="-26"/>
+		</transition>
+		<transition id="id58">
+			<source ref="id55"/>
+			<target ref="id56"/>
+			<label kind="synchronisation" x="-467" y="8">atcSend_WCPDisb?</label>
+			<nail x="-331" y="-26"/>
+			<nail x="-331" y="59"/>
+		</transition>
+		<transition id="id59">
+			<source ref="id55"/>
+			<target ref="id55"/>
+			<label kind="guard" x="-357" y="-119">pressButton == true</label>
+			<label kind="synchronisation" x="-314" y="-136">wcpReq!</label>
+			<nail x="-323" y="-102"/>
+			<nail x="-246" y="-102"/>
+		</transition>
+	</template>
+	<template>
+		<name>User</name>
+		<declaration>clock time;
+const int TIMEOUT = 12;</declaration>
+		<location id="id60" x="-34" y="-8">
+		</location>
+		<location id="id61" x="-34" y="59">
+			<label kind="invariant" x="-85" y="76">time &lt;= TIMEOUT</label>
+		</location>
+		<init ref="id60"/>
+		<transition id="id62">
+			<source ref="id61"/>
+			<target ref="id60"/>
+			<label kind="guard" x="-255" y="8">time == TIMEOUT</label>
+			<label kind="assignment" x="-255" y="25">time = 0,
+pressButton = true</label>
+			<nail x="-102" y="59"/>
+			<nail x="-102" y="-8"/>
+		</transition>
+		<transition id="id63">
+			<source ref="id60"/>
+			<target ref="id61"/>
+			<label kind="assignment" x="34" y="0">time = 0,
+pressButton = false</label>
+			<nail x="25" y="-8"/>
+			<nail x="25" y="59"/>
+		</transition>
+	</template>
+	<template>
+		<name>ATC</name>
+		<declaration>int n_clt_conn = 0;
+
+int n_clt_GetNewOk = 0;
+int n_clt_GetNewFail = 0;
+
+int n_clt_UseNewOk = 0;
+int n_clt_UseNewFail = 0;
+
+int n_clt_UseOldOk = 0;
+int n_clt_UseOldFail = 0;</declaration>
+		<location id="id64" x="-442" y="76">
+			<name x="-452" y="42">Idle</name>
+		</location>
+		<location id="id65" x="-212" y="170">
+			<name x="-195" y="161">PreInit</name>
+		</location>
+		<location id="id66" x="-212" y="238">
+			<name x="-195" y="229">Init</name>
+		</location>
+		<location id="id67" x="-212" y="314">
+		</location>
+		<location id="id68" x="-391" y="314">
+			<name x="-416" y="280">PostInit</name>
+		</location>
+		<location id="id69" x="-314" y="110">
+		</location>
+		<location id="id70" x="-510" y="246">
+		</location>
+		<location id="id71" x="-603" y="314">
+			<committed/>
+		</location>
+		<location id="id72" x="-714" y="-229">
+			<name x="-757" y="-212">PreUpdating</name>
+		</location>
+		<location id="id73" x="-909" y="-229">
+			<name x="-952" y="-212">Updating</name>
+		</location>
+		<location id="id74" x="-909" y="59">
+			<name x="-960" y="25">PostReverting</name>
+		</location>
+		<location id="id75" x="-909" y="-399">
+			<name x="-892" y="-399">PostUpdating</name>
+		</location>
+		<location id="id76" x="-212" y="102">
+			<committed/>
+		</location>
+		<location id="id77" x="-442" y="-195">
+			<committed/>
+		</location>
+		<location id="id78" x="-646" y="-34">
+			<committed/>
+		</location>
+		<location id="id79" x="-739" y="-510">
+			<committed/>
+		</location>
+		<location id="id80" x="-510" y="144">
+		</location>
+		<location id="id81" x="-671" y="42">
+			<committed/>
+		</location>
+		<location id="id82" x="-646" y="170">
+			<committed/>
+		</location>
+		<location id="id83" x="-697" y="-399">
+			<committed/>
+		</location>
+		<location id="id84" x="-280" y="76">
+			<committed/>
+		</location>
+		<location id="id85" x="-561" y="-229">
+			<committed/>
+		</location>
+		<init ref="id64"/>
+		<transition id="id86">
+			<source ref="id85"/>
+			<target ref="id72"/>
+			<label kind="synchronisation" x="-697" y="-255">atcSend_WCPDisb!</label>
+		</transition>
+		<transition id="id87">
+			<source ref="id84"/>
+			<target ref="id76"/>
+			<label kind="synchronisation" x="-255" y="59">atcSend_WCPDisb!</label>
+			<nail x="-212" y="76"/>
+		</transition>
+		<transition id="id88">
+			<source ref="id75"/>
+			<target ref="id83"/>
+			<label kind="guard" x="-884" y="-442">n_clt_UseNewOk == n_clt_conn</label>
+			<label kind="synchronisation" x="-884" y="-459">atcSend_Idle!</label>
+			<label kind="assignment" x="-884" y="-425">atcIdle = true</label>
+			<nail x="-875" y="-399"/>
+		</transition>
+		<transition id="id89">
+			<source ref="id82"/>
+			<target ref="id64"/>
+			<label kind="synchronisation" x="-629" y="85">atcSend_WCPEn!</label>
+			<nail x="-646" y="110"/>
+		</transition>
+		<transition id="id90">
+			<source ref="id81"/>
+			<target ref="id64"/>
+			<label kind="synchronisation" x="-653" y="25">atcSend_WCPEn!</label>
+			<nail x="-544" y="42"/>
+		</transition>
+		<transition id="id91">
+			<source ref="id80"/>
+			<target ref="id64"/>
+			<label kind="synchronisation" x="-578" y="110">atcSend_WCPEn!</label>
+		</transition>
+		<transition id="id92">
+			<source ref="id75"/>
+			<target ref="id79"/>
+			<label kind="guard" x="-901" y="-578">n_clt_UseNewFail &gt; 0</label>
+			<label kind="synchronisation" x="-901" y="-595">atcSend_Disconn!</label>
+			<label kind="assignment" x="-901" y="-552">n_clt_conn = 0,
+atcIdle = true</label>
+			<nail x="-909" y="-510"/>
+		</transition>
+		<transition id="id93">
+			<source ref="id78"/>
+			<target ref="id64"/>
+			<label kind="synchronisation" x="-629" y="-34">atcSend_WCPEn!</label>
+			<nail x="-535" y="-34"/>
+		</transition>
+		<transition id="id94">
+			<source ref="id83"/>
+			<target ref="id64"/>
+			<label kind="synchronisation" x="-620" y="-348">atcSend_WCPEn!</label>
+			<nail x="-646" y="-399"/>
+			<nail x="-544" y="-297"/>
+			<nail x="-374" y="-297"/>
+			<nail x="-374" y="-17"/>
+		</transition>
+		<transition id="id95">
+			<source ref="id79"/>
+			<target ref="id64"/>
+			<label kind="synchronisation" x="-459" y="-399">atcSend_WCPEn!</label>
+			<nail x="-705" y="-510"/>
+			<nail x="-671" y="-510"/>
+			<nail x="-646" y="-510"/>
+			<nail x="-501" y="-374"/>
+			<nail x="-306" y="-374"/>
+			<nail x="-272" y="-374"/>
+			<nail x="-272" y="-17"/>
+		</transition>
+		<transition id="id96">
+			<source ref="id75"/>
+			<target ref="id75"/>
+			<label kind="synchronisation" x="-1088" y="-459">cltSendUseNewFail?</label>
+			<label kind="assignment" x="-1096" y="-442">n_clt_UseNewFail++</label>
+			<nail x="-960" y="-416"/>
+			<nail x="-935" y="-450"/>
+		</transition>
+		<transition id="id97">
+			<source ref="id75"/>
+			<target ref="id75"/>
+			<label kind="synchronisation" x="-1088" y="-391">cltSendUseNewOk?</label>
+			<label kind="assignment" x="-1088" y="-374">n_clt_UseNewOk++</label>
+			<nail x="-943" y="-357"/>
+			<nail x="-960" y="-391"/>
+		</transition>
+		<transition id="id98">
+			<source ref="id73"/>
+			<target ref="id75"/>
+			<label kind="guard" x="-909" y="-357">n_clt_conn == n_clt_GetNewOk</label>
+			<label kind="synchronisation" x="-909" y="-340">atcSend_UseNew!</label>
+		</transition>
+		<transition id="id99">
+			<source ref="id74"/>
+			<target ref="id74"/>
+			<label kind="synchronisation" x="-1054" y="127">cltSendUseOldOk?</label>
+			<label kind="assignment" x="-1071" y="110">n_clt_UseOldOk++</label>
+			<nail x="-918" y="127"/>
+			<nail x="-969" y="93"/>
+		</transition>
+		<transition id="id100">
+			<source ref="id74"/>
+			<target ref="id74"/>
+			<label kind="synchronisation" x="-1122" y="0">cltSendUseOldFail?</label>
+			<label kind="assignment" x="-1130" y="17">n_clt_UseOldFail++</label>
+			<nail x="-960" y="0"/>
+			<nail x="-986" y="59"/>
+		</transition>
+		<transition id="id101">
+			<source ref="id74"/>
+			<target ref="id81"/>
+			<label kind="guard" x="-884" y="118">n_clt_conn == n_clt_UseOldOk</label>
+			<label kind="synchronisation" x="-884" y="135">atcSend_Idle!</label>
+			<label kind="assignment" x="-884" y="152">atcIdle = true</label>
+			<nail x="-892" y="118"/>
+			<nail x="-799" y="118"/>
+			<nail x="-782" y="118"/>
+			<nail x="-756" y="42"/>
+			<nail x="-722" y="42"/>
+			<nail x="-722" y="42"/>
+			<nail x="-688" y="42"/>
+		</transition>
+		<transition id="id102">
+			<source ref="id74"/>
+			<target ref="id78"/>
+			<label kind="guard" x="-841" y="-59">n_clt_UseOldFail &gt; 0</label>
+			<label kind="synchronisation" x="-841" y="-76">atcSend_Disconn!</label>
+			<label kind="assignment" x="-841" y="-42">atcIdle = true,
+n_clt_conn = 0</label>
+			<nail x="-824" y="59"/>
+			<nail x="-782" y="-34"/>
+			<nail x="-705" y="-34"/>
+			<nail x="-663" y="-34"/>
+		</transition>
+		<transition id="id103">
+			<source ref="id73"/>
+			<target ref="id74"/>
+			<label kind="guard" x="-1079" y="-93">n_clt_GetNewFail &gt; 0</label>
+			<label kind="synchronisation" x="-1037" y="-76">atcSend_UseOld!</label>
+		</transition>
+		<transition id="id104">
+			<source ref="id72"/>
+			<target ref="id73"/>
+			<label kind="synchronisation" x="-875" y="-229">atcSend_GetNew!</label>
+		</transition>
+		<transition id="id105">
+			<source ref="id77"/>
+			<target ref="id85"/>
+			<label kind="synchronisation" x="-544" y="-255">atcSend_PreUpd!</label>
+			<nail x="-442" y="-229"/>
+		</transition>
+		<transition id="id106">
+			<source ref="id64"/>
+			<target ref="id77"/>
+			<label kind="guard" x="-493" y="-170">n_clt_conn &gt; 0</label>
+			<label kind="synchronisation" x="-493" y="-153">wcpReq?</label>
+			<label kind="assignment" x="-493" y="-136">atcIdle = false,
+n_clt_GetNewOk = 0,
+n_clt_GetNewFail = 0,
+n_clt_UseNewOk = 0,
+n_clt_UseNewFail = 0,
+n_clt_UseOldOk = 0,
+n_clt_UseOldFail = 0</label>
+		</transition>
+		<transition id="id107">
+			<source ref="id71"/>
+			<target ref="id82"/>
+			<label kind="synchronisation" x="-706" y="220">atcSend_Idle!</label>
+			<label kind="assignment" x="-705" y="246">atcIdle = true,
+n_clt_conn++</label>
+			<nail x="-637" y="314"/>
+			<nail x="-637" y="314"/>
+			<nail x="-646" y="314"/>
+			<nail x="-646" y="229"/>
+			<nail x="-646" y="187"/>
+		</transition>
+		<transition id="id108">
+			<source ref="id68"/>
+			<target ref="id71"/>
+			<label kind="synchronisation" x="-561" y="297">cltSendUseNewOk?</label>
+		</transition>
+		<transition id="id109">
+			<source ref="id70"/>
+			<target ref="id80"/>
+			<label kind="synchronisation" x="-578" y="170">atcSend_Disconn!</label>
+			<label kind="assignment" x="-561" y="195">atcIdle = true</label>
+			<nail x="-510" y="178"/>
+		</transition>
+		<transition id="id110">
+			<source ref="id68"/>
+			<target ref="id70"/>
+			<label kind="synchronisation" x="-484" y="221">cltSendUseNewFail?</label>
+			<nail x="-391" y="246"/>
+			<nail x="-416" y="246"/>
+		</transition>
+		<transition id="id111">
+			<source ref="id69"/>
+			<target ref="id64"/>
+			<label kind="synchronisation" x="-459" y="110">atcSend_Disconn!</label>
+			<label kind="assignment" x="-450" y="127">atcIdle = true</label>
+			<nail x="-416" y="110"/>
+		</transition>
+		<transition id="id112">
+			<source ref="id66"/>
+			<target ref="id69"/>
+			<label kind="synchronisation" x="-374" y="178">cltSendGetFail?</label>
+			<nail x="-246" y="238"/>
+			<nail x="-246" y="110"/>
+		</transition>
+		<transition id="id113">
+			<source ref="id67"/>
+			<target ref="id68"/>
+			<label kind="synchronisation" x="-357" y="314">atcSend_UseNew!</label>
+		</transition>
+		<transition id="id114">
+			<source ref="id66"/>
+			<target ref="id67"/>
+			<label kind="synchronisation" x="-204" y="263">cltSendGetOk?</label>
+		</transition>
+		<transition id="id115">
+			<source ref="id65"/>
+			<target ref="id66"/>
+			<label kind="synchronisation" x="-204" y="187">atcSend_GetNew!</label>
+		</transition>
+		<transition id="id116">
+			<source ref="id76"/>
+			<target ref="id65"/>
+			<label kind="synchronisation" x="-204" y="119">atcSend_PreInit!</label>
+		</transition>
+		<transition id="id117">
+			<source ref="id64"/>
+			<target ref="id84"/>
+			<label kind="synchronisation" x="-382" y="42">cltReqConn?</label>
+			<label kind="assignment" x="-416" y="59">atcIdle = false</label>
+			<nail x="-391" y="76"/>
+		</transition>
+		<transition id="id118">
+			<source ref="id73"/>
+			<target ref="id73"/>
+			<label kind="synchronisation" x="-1054" y="-297">cltSendGetFail?</label>
+			<label kind="assignment" x="-1113" y="-280">n_clt_GetNewFail++</label>
+			<nail x="-926" y="-280"/>
+			<nail x="-952" y="-255"/>
+		</transition>
+		<transition id="id119">
+			<source ref="id73"/>
+			<target ref="id73"/>
+			<label kind="synchronisation" x="-884" y="-289">cltSendGetOk?</label>
+			<label kind="assignment" x="-867" y="-272">n_clt_GetNewOk++</label>
+			<nail x="-867" y="-255"/>
+			<nail x="-892" y="-280"/>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+Client1_sys = Client(1);
+Client2_sys = Client(2);
+Client3_sys = Client(3);
+Client4_sys = Client(4);
+Client5_sys = Client(5);
+ATC_sys = ATC();
+WCP_sys = WCP();
+ATC_Refuse_sys = ATC_Refuse();
+User_sys = User();
+
+// List one or more processes to be composed into a system.
+system Client1_sys, Client2_sys, Client3_sys, Client4_sys, Client5_sys, ATC_sys, WCP_sys, ATC_Refuse_sys, User_sys;</system>
+	<queries>
+		<query>
+			<formula>A[] not deadlock</formula>
+			<comment/>
+			<result outcome="success" type="quality" timestamp="2023-09-05 09:03:51 -0300">
+			</result>
+		</query>
+	</queries>
+</nta>

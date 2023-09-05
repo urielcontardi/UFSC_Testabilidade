@@ -7,18 +7,15 @@ TAPAAL é um acrônimo para "Timed-Arc Petri Net Analysis and Verification Tool"
 Editor Gráfico: O TAPAAL oferece uma interface gráfica para a criação de modelos de Redes de Petri Temporizadas, tornando-o acessível para engenheiros e modeladores.
 
 - Simulação: É possível simular o comportamento do sistema modelado para verificar seu funcionamento antes de realizar análises formais.
-
 - Verificação: O TAPAAL suporta a verificação formal de propriedades dos modelos, como propriedades de deadlock, alcançabilidade, vivacidade e outras.
-
 - Geração de Contadores de Tempo: A ferramenta gera automaticamente contadores de tempo para ajudar na análise temporal dos modelos.
-
 - Análise de Desempenho: Também permite a análise de desempenho, incluindo métricas como tempo de execução e latência.
 
 ## Rede de Petri
 
 Uma Rede de Petri é um modelo matemático e gráfico utilizado para representar sistemas dinâmicos, especialmente sistemas concorrentes e paralelos. Ela foi desenvolvida por Carl Adam Petri na década de 1960 e é amplamente utilizada em engenharia de sistemas, ciência da computação e áreas relacionadas. Uma Rede de Petri consiste em dois elementos principais:
-- Lugares (Places): São representados por círculos e representam estados ou condições do sistema. Eles podem conter uma certa quantidade de "marcas" que indicam recursos, tokens ou informações.
 
+- Lugares (Places): São representados por círculos e representam estados ou condições do sistema. Eles podem conter uma certa quantidade de "marcas" que indicam recursos, tokens ou informações.
 - Transições (Transitions): São representadas por retângulos e representam eventos ou ações que podem ocorrer no sistema. Para que uma transição ocorra, certas condições prévias nos lugares devem ser satisfeitas.
 
 Além desses elementos básicos, uma Rede de Petri também inclui arcos direcionados que conectam lugares a transições (arcos de entrada) e transições a lugares (arcos de saída). Esses arcos indicam as condições que devem ser cumpridas para que uma transição possa ocorrer e as consequências de uma transição.
@@ -28,13 +25,29 @@ As Redes de Petri são úteis para modelar e analisar sistemas complexos, ajudan
 ## Verificação Formal
 
 ### Propriedade de Safety
+
 A propriedade de segurança em sistemas refere-se à garantia de que determinadas condições indesejáveis não ocorrerão. Em outras palavras, um sistema é seguro se ele não permite que eventos prejudiciais ou comportamentos indesejados ocorram.
 
 ### Propriedade de Liveness
+
 A propriedade de vivacidade em sistemas refere-se à garantia de que algum evento desejado eventualmente ocorrerá. Em outras palavras, um sistema é vivo se ele continua a fazer progresso ou a responder, mesmo que não seja necessariamente de forma imediata.
 
 Em sistemas distribuídos, essas propriedades são cruciais para garantir que o sistema funcione de maneira confiável e eficaz, especialmente em ambientes críticos, como sistemas de controle industrial, sistemas financeiros e sistemas de saúde.
 
+### Linguagem CTL
+
+A lógica da árvore de computação CTL combina operadores de tempo de ramificação e de tempo linear.
+Nesta lógica, um quantificador de caminho pode prefixar uma asserção composta por combinações arbitrárias dos operadores usuais de tempo linear.
+
+1. Quantificadores de caminho:
+    - A — “para todos os caminhos”
+    - E — “existe um caminho"
+
+2. Operadores de tempo linear:
+    - X p — p será verdadeiro na próxima vez.
+    - F p — p é válido em algum momento no futuro
+    - G p — p é válido globalmente no futuro
+    - p U q — p é verdadeiro até que q seja verdadeiro
 
 ## Objetivo
 
@@ -50,8 +63,19 @@ Este trabalho tem por objetivo modelar uma rede de Petri que representa um siste
 <img src="img/model.png" alt="drawing" width="600"/>
 </p>
 
-O sistema possui alguns parâmetros: M (Memory Segment), T (tasks), D (Disk Controllers) e C (Core). Para simplificar reduziu-se para dois únicos parametros MT e DC, em que: $$ M = T = MT $$ $$ D = DC $$ $$ C = 2 DC $$
+O sistema possui alguns parâmetros: M (Memory Segment), T (tasks), D (Disk Controllers) e C (Core). Para simplificar reduziu-se para dois únicos parametros MT e DC, em que:
 
+$$
+M = T = MT
+$$
+
+$$
+D = DC
+$$
+
+$$
+C = 2 DC
+$$
 
 ## Modelagem do Sistema no TAPAAL
 
@@ -62,37 +86,36 @@ O sistema possui alguns parâmetros: M (Memory Segment), T (tasks), D (Disk Cont
 </p>
 
 ### Simulação
+
 ![using a color picker](img/petri_run.gif)
 
 ## Verificação Formal
 
 Os tipos de verificação possíveis no TAPAAL são:
 
-- ``` (EF) Existe alguma marcação acessível que satisfaz ``` 
-- ``` (EG) Existe um traço no qual cada marcação satisfaz ``` 
-- ``` (AF) Em todos os traços existe eventualmente uma marcação que satisfaz ``` 
-- ``` (AG) Todas as marcações acessíveis satisfazem ``` 
+- ``(EF) Existe alguma marcação acessível que satisfaz``
+- ``(EG) Existe um traço no qual cada marcação satisfaz``
+- ``(AF) Em todos os traços existe eventualmente uma marcação que satisfaz``
+- ``(AG) Todas as marcações acessíveis satisfazem``
 
 ### Propriedade de Safety
 
-- ``` AG !(deadlock) ``` 
+- ``AG !(deadlock)``
 
 ### Propriedade de Liveness
 
-- ``` E[] forall(i:id_task_t) task_sys(i).TaskSuspended imply task_sys(i).TaskUnloading``` 
-
-- ``` E[] forall(i:id_task_t) task_sys(i).TaskLoadingMem imply task_sys(i).TaskReady```
-
-- ```E[] forall(i:id_task_t) task_sys(i).TaskReady imply task_sys(i).TaskRunning```
-
+- ``AF (EF TinyOS.ExecutingTask != 0)``
+- ``AF (EF TinyOS.TaskSuspended != 0)``
+- ``AF (EF TinyOS.TranferToDisk != 0)``
 
 ## Resultados
 
 ### Deadlock:
+
 <p align="center">
 <img src="img/deadlock.png" alt="drawing" width="250"/>
 </p>
 
 ## Conclusão
 
-Ao comparar a usabilidade do software em relação ao software UPAAL notou-se que a verificação é realizada de maneira mais eficaz e rapidamente
+Ao comparar a usabilidade do software em relação ao software UPAAL notou-se que a verificação é realizada de maneira mais eficaz.

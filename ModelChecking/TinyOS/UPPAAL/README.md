@@ -1,6 +1,5 @@
 # Modelo de Rede de Petri - Sistema Operacional no UPPAAL
 
-
 ## UPPAAL
 
 O UPPAAL é uma ferramenta de código aberto amplamente utilizada para modelagem, simulação e verificação de sistemas baseados em tempo real. Foi desenvolvido principalmente por pesquisadores da Universidade de Uppsala, na Suécia, e da Universidade de Aalborg, na Dinamarca. O nome "UPPAAL" é uma combinação das palavras "Uppsala" e "Aalborg."
@@ -15,8 +14,8 @@ Dentre as principais utilizações da ferramenta, destacam-se:
 ## Rede de Petri
 
 Uma Rede de Petri é um modelo matemático e gráfico utilizado para representar sistemas dinâmicos, especialmente sistemas concorrentes e paralelos. Ela foi desenvolvida por Carl Adam Petri na década de 1960 e é amplamente utilizada em engenharia de sistemas, ciência da computação e áreas relacionadas. Uma Rede de Petri consiste em dois elementos principais:
-- Lugares (Places): São representados por círculos e representam estados ou condições do sistema. Eles podem conter uma certa quantidade de "marcas" que indicam recursos, tokens ou informações.
 
+- Lugares (Places): São representados por círculos e representam estados ou condições do sistema. Eles podem conter uma certa quantidade de "marcas" que indicam recursos, tokens ou informações.
 - Transições (Transitions): São representadas por retângulos e representam eventos ou ações que podem ocorrer no sistema. Para que uma transição ocorra, certas condições prévias nos lugares devem ser satisfeitas.
 
 Além desses elementos básicos, uma Rede de Petri também inclui arcos direcionados que conectam lugares a transições (arcos de entrada) e transições a lugares (arcos de saída). Esses arcos indicam as condições que devem ser cumpridas para que uma transição possa ocorrer e as consequências de uma transição.
@@ -26,13 +25,30 @@ As Redes de Petri são úteis para modelar e analisar sistemas complexos, ajudan
 ## Verificação Formal
 
 ### Propriedade de Safety
+
 A propriedade de segurança em sistemas refere-se à garantia de que determinadas condições indesejáveis não ocorrerão. Em outras palavras, um sistema é seguro se ele não permite que eventos prejudiciais ou comportamentos indesejados ocorram.
 
 ### Propriedade de Liveness
+
 A propriedade de vivacidade em sistemas refere-se à garantia de que algum evento desejado eventualmente ocorrerá. Em outras palavras, um sistema é vivo se ele continua a fazer progresso ou a responder, mesmo que não seja necessariamente de forma imediata.
 
 Em sistemas distribuídos, essas propriedades são cruciais para garantir que o sistema funcione de maneira confiável e eficaz, especialmente em ambientes críticos, como sistemas de controle industrial, sistemas financeiros e sistemas de saúde.
 
+### Linguagem CTL
+
+A lógica da árvore de computação CTL combina operadores de tempo de ramificação e de tempo linear.
+Nesta lógica, um quantificador de caminho pode prefixar uma asserção composta por combinações arbitrárias dos operadores usuais de tempo linear.
+
+1. Quantificadores de caminho:
+
+   - A — “para todos os caminhos”
+   - E — “existe um caminho"
+2. Operadores de tempo linear:
+
+   - X p — p será verdadeiro na próxima vez.
+   - F p — p é válido em algum momento no futuro
+   - G p — p é válido globalmente no futuro
+   - p U q — p é verdadeiro até que q seja verdadeiro
 
 ## Objetivo
 
@@ -48,7 +64,19 @@ Este trabalho tem por objetivo modelar uma rede de Petri que representa um siste
 <img src="img/model.png" alt="drawing" width="600"/>
 </p>
 
-O sistema possui alguns parâmetros: M (Memory Segment), T (tasks), D (Disk Controllers) e C (Core). Para simplificar reduziu-se para dois únicos parametros MT e DC, em que: $$ M = T = MT $$ $$ D = DC $$ $$ C = 2 DC $$
+O sistema possui alguns parâmetros: M (Memory Segment), T (tasks), D (Disk Controllers) e C (Core). Para simplificar reduziu-se para dois únicos parametros MT e DC, em que: 
+
+$$
+M = T = MT
+$$
+
+$$
+D = DC
+$$
+
+$$
+C = 2 DC
+$$
 
 
 ## Modelagem do Sistema no UPPAAL
@@ -64,6 +92,7 @@ templateTask()
 </p>
 
 #### Funções:
+
 ```
 bool startLoading()
 {
@@ -86,6 +115,7 @@ bool startUnloading()
 ```
 
 ### Resource
+
 ```
 templateResource(int &ctrUseResource, chan &chanGet, chan &chanFree)
 ```
@@ -100,26 +130,19 @@ templateResource(int &ctrUseResource, chan &chanGet, chan &chanFree)
 <img src="img/properties.png" alt="drawing" width="400"/>
 </p>
 
-
 ### Propriedade de Safety
 
-- ``` A[] not deadlock ``` 
+- ``A[] not deadlock``
 
 ### Propriedade de Liveness
 
-- ``` E[] forall(i:id_task_t) task_sys(i).TaskSuspended imply task_sys(i).TaskUnloading``` 
-
-- ``` E[] forall(i:id_task_t) task_sys(i).TaskLoadingMem imply task_sys(i).TaskReady```
-
-- ```E[] forall(i:id_task_t) task_sys(i).TaskReady imply task_sys(i).TaskRunning```
-
-- ```E[] forall(i:id_task_t) task_sys(i).TaskRunning imply task_sys(i).TaskSuspended```
-
-- ```E[] forall(i:id_task_t) task_sys(i).TaskReady imply task_sys(i).TaskUnloaded```
-
-- ```E[] forall(i:id_task_t) task_sys(i).TaskUnloading imply task_sys(i).TaskReady```
-
-- ```E[] forall(i:id_task_t) task_sys(i).TaskSuspended imply task_sys(i).TaskRunning```
+- `` E[] forall(i:id_task_t) task_sys(i).TaskSuspended imply task_sys(i).TaskUnloading``
+- `` E[] forall(i:id_task_t) task_sys(i).TaskLoadingMem imply task_sys(i).TaskReady``
+- ``E[] forall(i:id_task_t) task_sys(i).TaskReady imply task_sys(i).TaskRunning``
+- ``E[] forall(i:id_task_t) task_sys(i).TaskRunning imply task_sys(i).TaskSuspended``
+- ``E[] forall(i:id_task_t) task_sys(i).TaskReady imply task_sys(i).TaskUnloaded``
+- ``E[] forall(i:id_task_t) task_sys(i).TaskUnloading imply task_sys(i).TaskReady``
+- ``E[] forall(i:id_task_t) task_sys(i).TaskSuspended imply task_sys(i).TaskRunning``
 
 ## Resultados
 
@@ -129,7 +152,7 @@ templateResource(int &ctrUseResource, chan &chanGet, chan &chanFree)
 <img src="img/model_16_8.png" alt="drawing" width="900"/>
 </p>
 
-O modelo demonstrou-se funcional, no entanto ressalta-se o alto custo computacional da ferramenta para a verificação formal do sistema. Ao aumentar o número de elementos no sistema o tempo e consumo de memória elevam exponencialmente. A seguir ilustra-se o tempo decorrido e memória utilizados durante o processo de verificação da primeira propriedade para 
+O modelo demonstrou-se funcional, no entanto ressalta-se o alto custo computacional da ferramenta para a verificação formal do sistema. Ao aumentar o número de elementos no sistema o tempo e consumo de memória elevam exponencialmente. A seguir ilustra-se o tempo decorrido e memória utilizados durante o processo de verificação da primeira propriedade para
 
 <p align="center">
 <img src="img/compilation.png" alt="drawing" width="200"/>

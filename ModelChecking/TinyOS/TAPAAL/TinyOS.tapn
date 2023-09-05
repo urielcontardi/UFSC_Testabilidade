@@ -19,8 +19,8 @@
     <transition angle="90" displayName="true" id="suspend" infiniteServer="false" name="suspend" nameOffsetX="77" nameOffsetY="16" player="0" positionX="592" positionY="525" priority="0" urgent="false"/>
     <transition angle="90" displayName="true" id="startNext" infiniteServer="false" name="startNext" nameOffsetX="41" nameOffsetY="2" player="0" positionX="517" positionY="472" priority="0" urgent="false"/>
     <arc id="A0" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="TaskOnDisk" target="startLoading" type="timed" weight="1">
-      <arcpath arcPointType="false" id="0" xCoord="472" yCoord="165"/>
-      <arcpath arcPointType="false" id="1" xCoord="380" yCoord="169"/>
+      <arcpath arcPointType="false" id="0" xCoord="472" yCoord="166"/>
+      <arcpath arcPointType="false" id="1" xCoord="388" yCoord="177"/>
       <arcpath arcPointType="false" id="2" xCoord="374" yCoord="181"/>
     </arc>
     <arc id="A1" inscription="1" nameOffsetX="0" nameOffsetY="0" source="startLoading" target="LoadingMem" type="normal" weight="1">
@@ -36,8 +36,8 @@
       <arcpath arcPointType="false" id="1" xCoord="381" yCoord="442"/>
     </arc>
     <arc id="A4" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="TaskReady" target="freeMemory" type="timed" weight="1">
-      <arcpath arcPointType="false" id="0" xCoord="367" yCoord="456"/>
-      <arcpath arcPointType="false" id="1" xCoord="272" yCoord="455"/>
+      <arcpath arcPointType="false" id="0" xCoord="367" yCoord="457"/>
+      <arcpath arcPointType="false" id="1" xCoord="280" yCoord="463"/>
       <arcpath arcPointType="false" id="2" xCoord="269" yCoord="401"/>
     </arc>
     <arc id="A5" inscription="1" nameOffsetX="0" nameOffsetY="0" source="freeMemory" target="FreeMemSegment" type="normal" weight="1">
@@ -45,8 +45,8 @@
       <arcpath arcPointType="false" id="1" xCoord="269" yCoord="231"/>
     </arc>
     <arc id="A6" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="FreeMemSegment" target="startLoading" type="timed" weight="1">
-      <arcpath arcPointType="false" id="0" xCoord="274" yCoord="202"/>
-      <arcpath arcPointType="false" id="1" xCoord="278" yCoord="190"/>
+      <arcpath arcPointType="false" id="0" xCoord="279" yCoord="205"/>
+      <arcpath arcPointType="false" id="1" xCoord="286" yCoord="198"/>
       <arcpath arcPointType="false" id="2" xCoord="359" yCoord="187"/>
     </arc>
     <arc id="A7" inscription="1" nameOffsetX="0" nameOffsetY="0" source="endLoading" target="DiskControllerUnit" type="normal" weight="1">
@@ -59,47 +59,47 @@
     </arc>
     <arc id="A9" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="DiskControllerUnit" target="startLoading" type="timed" weight="1">
       <arcpath arcPointType="false" id="0" xCoord="487" yCoord="339"/>
-      <arcpath arcPointType="false" id="1" xCoord="408" yCoord="214"/>
+      <arcpath arcPointType="false" id="1" xCoord="416" yCoord="222"/>
       <arcpath arcPointType="false" id="2" xCoord="374" yCoord="191"/>
     </arc>
     <arc id="A10" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="DiskControllerUnit" target="startUnload" type="timed" weight="1">
-      <arcpath arcPointType="false" id="0" xCoord="509" yCoord="352"/>
-      <arcpath arcPointType="false" id="1" xCoord="553" yCoord="355"/>
+      <arcpath arcPointType="false" id="0" xCoord="509" yCoord="354"/>
+      <arcpath arcPointType="false" id="1" xCoord="561" yCoord="363"/>
       <arcpath arcPointType="false" id="2" xCoord="585" yCoord="351"/>
     </arc>
     <arc id="A11" inscription="1" nameOffsetX="0" nameOffsetY="0" source="startUnload" target="TranferToDisk" type="normal" weight="1">
       <arcpath arcPointType="false" id="0" xCoord="595" yCoord="346"/>
-      <arcpath arcPointType="false" id="1" xCoord="604" yCoord="325"/>
-      <arcpath arcPointType="false" id="2" xCoord="606" yCoord="291"/>
+      <arcpath arcPointType="false" id="1" xCoord="612" yCoord="333"/>
+      <arcpath arcPointType="false" id="2" xCoord="608" yCoord="291"/>
     </arc>
     <arc id="A12" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="TranferToDisk" target="endUnload" type="timed" weight="1">
-      <arcpath arcPointType="false" id="0" xCoord="607" yCoord="262"/>
-      <arcpath arcPointType="false" id="1" xCoord="608" yCoord="230"/>
+      <arcpath arcPointType="false" id="0" xCoord="610" yCoord="262"/>
+      <arcpath arcPointType="false" id="1" xCoord="616" yCoord="238"/>
       <arcpath arcPointType="false" id="2" xCoord="611" yCoord="192"/>
     </arc>
     <arc id="A13" inscription="1" nameOffsetX="0" nameOffsetY="0" source="endUnload" target="TaskOnDisk" type="normal" weight="1">
       <arcpath arcPointType="false" id="0" xCoord="606" yCoord="181"/>
-      <arcpath arcPointType="false" id="1" xCoord="607" yCoord="170"/>
-      <arcpath arcPointType="false" id="2" xCoord="501" yCoord="165"/>
+      <arcpath arcPointType="false" id="1" xCoord="615" yCoord="178"/>
+      <arcpath arcPointType="false" id="2" xCoord="501" yCoord="166"/>
     </arc>
     <arc id="A14" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="TaskOnDisk" target="startUnload" type="timed" weight="1">
-      <arcpath arcPointType="false" id="0" xCoord="494" yCoord="177"/>
-      <arcpath arcPointType="false" id="1" xCoord="588" yCoord="329"/>
+      <arcpath arcPointType="false" id="0" xCoord="495" yCoord="177"/>
+      <arcpath arcPointType="false" id="1" xCoord="596" yCoord="337"/>
       <arcpath arcPointType="false" id="2" xCoord="600" yCoord="347"/>
     </arc>
     <arc id="A15" inscription="1" nameOffsetX="0" nameOffsetY="0" source="endUnload" target="DiskControllerUnit" type="normal" weight="1">
       <arcpath arcPointType="false" id="0" xCoord="601" yCoord="191"/>
-      <arcpath arcPointType="false" id="1" xCoord="553" yCoord="252"/>
-      <arcpath arcPointType="false" id="2" xCoord="502" yCoord="339"/>
+      <arcpath arcPointType="false" id="1" xCoord="561" yCoord="260"/>
+      <arcpath arcPointType="false" id="2" xCoord="503" yCoord="339"/>
     </arc>
     <arc id="A16" inscription="1" nameOffsetX="0" nameOffsetY="0" source="endUnload" target="TaskReady" type="normal" weight="1">
       <arcpath arcPointType="false" id="0" xCoord="601" yCoord="191"/>
-      <arcpath arcPointType="false" id="1" xCoord="513" yCoord="433"/>
-      <arcpath arcPointType="false" id="2" xCoord="396" yCoord="454"/>
+      <arcpath arcPointType="false" id="1" xCoord="521" yCoord="441"/>
+      <arcpath arcPointType="false" id="2" xCoord="396" yCoord="455"/>
     </arc>
     <arc id="A20" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="ExecutingTask" target="suspend" type="timed" weight="1">
-      <arcpath arcPointType="false" id="0" xCoord="516" yCoord="622"/>
-      <arcpath arcPointType="false" id="1" xCoord="612" yCoord="623"/>
+      <arcpath arcPointType="false" id="0" xCoord="516" yCoord="623"/>
+      <arcpath arcPointType="false" id="1" xCoord="620" yCoord="631"/>
       <arcpath arcPointType="false" id="2" xCoord="606" yCoord="544"/>
     </arc>
     <arc id="A21" inscription="1" nameOffsetX="0" nameOffsetY="0" source="suspend" target="TaskSuspended" type="normal" weight="1">
@@ -107,8 +107,8 @@
       <arcpath arcPointType="false" id="1" xCoord="606" yCoord="501"/>
     </arc>
     <arc id="A22" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="TaskSuspended" target="startUnload" type="timed" weight="1">
-      <arcpath arcPointType="false" id="0" xCoord="607" yCoord="472"/>
-      <arcpath arcPointType="false" id="1" xCoord="607" yCoord="430"/>
+      <arcpath arcPointType="false" id="0" xCoord="609" yCoord="472"/>
+      <arcpath arcPointType="false" id="1" xCoord="615" yCoord="438"/>
       <arcpath arcPointType="false" id="2" xCoord="600" yCoord="357"/>
     </arc>
     <arc id="A23" inscription="1" nameOffsetX="0" nameOffsetY="0" source="suspend" target="CPUUnit" type="normal" weight="1">
@@ -116,23 +116,23 @@
       <arcpath arcPointType="false" id="1" xCoord="509" yCoord="533"/>
     </arc>
     <arc id="A24" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="CPUUnit" target="startNext" type="timed" weight="1">
-      <arcpath arcPointType="false" id="0" xCoord="496" yCoord="517"/>
-      <arcpath arcPointType="false" id="1" xCoord="498" yCoord="490"/>
+      <arcpath arcPointType="false" id="0" xCoord="499" yCoord="517"/>
+      <arcpath arcPointType="false" id="1" xCoord="506" yCoord="498"/>
       <arcpath arcPointType="false" id="2" xCoord="516" yCoord="487"/>
     </arc>
     <arc id="A25" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="TaskSuspended" target="startNext" type="timed" weight="1">
-      <arcpath arcPointType="false" id="0" xCoord="592" yCoord="487"/>
-      <arcpath arcPointType="false" id="1" xCoord="574" yCoord="489"/>
+      <arcpath arcPointType="false" id="0" xCoord="593" yCoord="492"/>
+      <arcpath arcPointType="false" id="1" xCoord="582" yCoord="497"/>
       <arcpath arcPointType="false" id="2" xCoord="546" yCoord="487"/>
     </arc>
     <arc id="A26" inscription="1" nameOffsetX="0" nameOffsetY="0" source="startNext" target="ExecutingTask" type="normal" weight="1">
       <arcpath arcPointType="false" id="0" xCoord="531" yCoord="491"/>
-      <arcpath arcPointType="false" id="1" xCoord="539" yCoord="590"/>
-      <arcpath arcPointType="false" id="2" xCoord="513" yCoord="612"/>
+      <arcpath arcPointType="false" id="1" xCoord="547" yCoord="598"/>
+      <arcpath arcPointType="false" id="2" xCoord="515" yCoord="614"/>
     </arc>
     <arc id="A27" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="TaskReady" target="startFirst" type="timed" weight="1">
-      <arcpath arcPointType="false" id="0" xCoord="383" yCoord="471"/>
-      <arcpath arcPointType="false" id="1" xCoord="388" yCoord="505"/>
+      <arcpath arcPointType="false" id="0" xCoord="385" yCoord="471"/>
+      <arcpath arcPointType="false" id="1" xCoord="396" yCoord="513"/>
       <arcpath arcPointType="false" id="2" xCoord="381" yCoord="526"/>
     </arc>
     <arc id="A28" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="CPUUnit" target="startFirst" type="timed" weight="1">
@@ -141,24 +141,10 @@
     </arc>
     <arc id="A29" inscription="1" nameOffsetX="0" nameOffsetY="0" source="startFirst" target="ExecutingTask" type="normal" weight="1">
       <arcpath arcPointType="false" id="0" xCoord="381" yCoord="536"/>
-      <arcpath arcPointType="false" id="1" xCoord="388" yCoord="615"/>
-      <arcpath arcPointType="false" id="2" xCoord="487" yCoord="621"/>
+      <arcpath arcPointType="false" id="1" xCoord="396" yCoord="623"/>
+      <arcpath arcPointType="false" id="2" xCoord="487" yCoord="622"/>
     </arc>
   </net>
-  <query active="true" algorithmOption="CERTAIN_ZERO" approximationDenominator="0" capacity="4" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="AUTOMATIC" gcd="false" hashTableSize="MB_16" inclusionPlaces="*NONE*" name="ExecutingTask" overApproximation="false" pTrie="false" reduction="true" reductionOption="VerifyPN" searchOption="HEURISTIC" symmetry="false" timeDarts="false" traceOption="NONE" type="CTL" useQueryReduction="true" useSiphonTrapAnalysis="false" useStubbornReduction="true" useTarOption="false" useTarjan="true">
-    <formula>
-      <exists-path>
-        <finally>
-          <integer-gt>
-            <tokens-count>
-              <place>TinyOS.ExecutingTask</place>
-            </tokens-count>
-            <integer-constant>0</integer-constant>
-          </integer-gt>
-        </finally>
-      </exists-path>
-    </formula>
-  </query>
   <query active="true" algorithmOption="CERTAIN_ZERO" approximationDenominator="0" capacity="4" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="AUTOMATIC" gcd="false" hashTableSize="MB_16" inclusionPlaces="*NONE*" name="Deadlock" overApproximation="false" pTrie="false" reduction="true" reductionOption="VerifyPN" searchOption="HEURISTIC" symmetry="false" timeDarts="false" traceOption="NONE" type="CTL" useQueryReduction="true" useSiphonTrapAnalysis="false" useStubbornReduction="true" useTarOption="false" useTarjan="true">
     <formula>
       <all-paths>
@@ -170,18 +156,58 @@
       </all-paths>
     </formula>
   </query>
-  <query active="true" algorithmOption="CERTAIN_ZERO" approximationDenominator="0" capacity="4" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="Query Comment/Name Here" overApproximation="false" pTrie="false" reduction="true" reductionOption="VerifyPN" searchOption="HEURISTIC" symmetry="false" timeDarts="false" traceOption="NONE" type="CTL" useQueryReduction="true" useSiphonTrapAnalysis="false" useStubbornReduction="true" useTarOption="false" useTarjan="true">
+  <query active="true" algorithmOption="CERTAIN_ZERO" approximationDenominator="0" capacity="4" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="Executing Task" overApproximation="false" pTrie="false" reduction="true" reductionOption="VerifyPN" searchOption="HEURISTIC" symmetry="false" timeDarts="false" traceOption="NONE" type="CTL" useQueryReduction="true" useSiphonTrapAnalysis="false" useStubbornReduction="true" useTarOption="false" useTarjan="true">
     <formula>
-      <exists-path>
-        <next>
-          <integer-eq>
-            <tokens-count>
-              <place>TinyOS.TaskReady</place>
-            </tokens-count>
-            <integer-constant>1</integer-constant>
-          </integer-eq>
-        </next>
-      </exists-path>
+      <all-paths>
+        <finally>
+          <exists-path>
+            <finally>
+              <integer-ne>
+                <tokens-count>
+                  <place>TinyOS.ExecutingTask</place>
+                </tokens-count>
+                <integer-constant>0</integer-constant>
+              </integer-ne>
+            </finally>
+          </exists-path>
+        </finally>
+      </all-paths>
+    </formula>
+  </query>
+  <query active="true" algorithmOption="CERTAIN_ZERO" approximationDenominator="0" capacity="4" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="TaskSuspended" overApproximation="false" pTrie="false" reduction="true" reductionOption="VerifyPN" searchOption="HEURISTIC" symmetry="false" timeDarts="false" traceOption="NONE" type="CTL" useQueryReduction="true" useSiphonTrapAnalysis="false" useStubbornReduction="true" useTarOption="false" useTarjan="true">
+    <formula>
+      <all-paths>
+        <finally>
+          <exists-path>
+            <finally>
+              <integer-ne>
+                <tokens-count>
+                  <place>TinyOS.TaskSuspended</place>
+                </tokens-count>
+                <integer-constant>0</integer-constant>
+              </integer-ne>
+            </finally>
+          </exists-path>
+        </finally>
+      </all-paths>
+    </formula>
+  </query>
+  <query active="true" algorithmOption="CERTAIN_ZERO" approximationDenominator="0" capacity="4" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="TransfertoDisk" overApproximation="false" pTrie="false" reduction="true" reductionOption="VerifyPN" searchOption="HEURISTIC" symmetry="false" timeDarts="false" traceOption="NONE" type="CTL" useQueryReduction="true" useSiphonTrapAnalysis="false" useStubbornReduction="true" useTarOption="false" useTarjan="true">
+    <formula>
+      <all-paths>
+        <finally>
+          <exists-path>
+            <finally>
+              <integer-ne>
+                <tokens-count>
+                  <place>TinyOS.TranferToDisk</place>
+                </tokens-count>
+                <integer-constant>0</integer-constant>
+              </integer-ne>
+            </finally>
+          </exists-path>
+        </finally>
+      </all-paths>
     </formula>
   </query>
   <k-bound bound="3"/>
